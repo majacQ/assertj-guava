@@ -8,55 +8,50 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  *
- * Copyright 2012-2021 the original author or authors.
+ * Copyright 2012-2022 the original author or authors.
  */
 package org.assertj.guava.api;
 
 import static java.lang.String.format;
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
+import static org.assertj.core.api.BDDAssertions.then;
 import static org.assertj.core.util.FailureMessages.actualIsNull;
 import static org.assertj.guava.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
 
 import org.junit.jupiter.api.Test;
 
 /**
- * Tests for <code>{@link MultimapAssert#hasSize(int)}</code>.
- *
  * @author Joel Costigliola
  */
-public class MultimapAssert_hasSize_Test extends MultimapAssertBaseTest {
+class MultimapAssert_hasSize_Test extends MultimapAssertBaseTest {
 
   @Test
-  public void should_pass_if_size_of_actual_is_equal_to_expected_size() {
+  void should_pass_if_size_of_actual_is_equal_to_expected_size() {
+    // WHEN/THEN
     assertThat(actual).hasSize(9);
   }
 
   @Test
-  public void should_fail_if_actual_is_null() {
+  void should_fail_if_actual_is_null() {
     // GIVEN
     actual = null;
     // WHEN
     Throwable throwable = catchThrowable(() -> assertThat(actual).hasSize(2));
     // THEN
-    assertThat(throwable).isInstanceOf(AssertionError.class)
-                         .hasMessage(actualIsNull());
+    then(throwable).isInstanceOf(AssertionError.class)
+                   .hasMessage(actualIsNull());
   }
 
   @Test
-  public void should_fail_if_size_of_actual_is_not_equal_to_expected_size() {
-    try {
-      assertThat(actual).hasSize(3);
-    } catch (AssertionError e) {
-      // @format:off
-      assertThat(e).hasMessage(format("%n" +
-                               "Expected size: 3 but was: 9 in:%n" +
-                               "{Lakers=[Kobe Bryant, Magic Johnson, Kareem Abdul Jabbar], Bulls=[Michael Jordan, " +
-                               "Scottie Pippen, Derrick Rose], Spurs=[Tony Parker, Tim Duncan, Manu Ginobili]}"));
-      // @format:on
-      return;
-    }
-    fail("Assertion error expected");
+  void should_fail_if_size_of_actual_is_not_equal_to_expected_size() {
+    // WHEN
+    Throwable throwable = catchThrowable(() -> assertThat(actual).hasSize(3));
+    // THEN
+    then(throwable).isInstanceOf(AssertionError.class)
+                   .hasMessage(format("%n" +
+                                      "Expected size: 3 but was: 9 in:%n" +
+                                      "{Lakers=[Kobe Bryant, Magic Johnson, Kareem Abdul Jabbar], Bulls=[Michael Jordan, " +
+                                      "Scottie Pippen, Derrick Rose], Spurs=[Tony Parker, Tim Duncan, Manu Ginobili]}"));
   }
+
 }

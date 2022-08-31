@@ -8,13 +8,12 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  *
- * Copyright 2012-2021 the original author or authors.
+ * Copyright 2012-2022 the original author or authors.
  */
 package org.assertj.guava.api;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
+import static org.assertj.core.api.BDDAssertions.then;
+import static org.assertj.guava.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
 
@@ -22,22 +21,28 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 
 /**
- * Tests for <code>{@link Assertions#assertThat(Multimap)}</code>.
- *
  * @author Joel Costigliola
  */
-public class Assertions_assertThat_with_Multimap_Test {
+class Assertions_assertThat_with_Multimap_Test {
 
   @Test
-  public void should_create_Assert() {
+  void should_create_Assert() {
+    // GIVEN
     Multimap<String, String> actual = HashMultimap.create();
-    assertNotNull(Assertions.assertThat(actual));
-    assertEquals(MultimapAssert.class, Assertions.assertThat(actual).getClass());
+    // WHEN
+    MultimapAssert<String, String> assertion = assertThat(actual);
+    // THEN
+    then(assertion).isNotNull();
   }
 
   @Test
-  public void should_pass_actual() {
+  void should_pass_actual() {
+    // GIVEN
     Multimap<String, String> actual = HashMultimap.create();
-    assertSame(actual, Assertions.assertThat(actual).getActual());
+    // WHEN
+    Multimap<String, String> result = assertThat(actual).getActual();
+    // THEN
+    then(result).isSameAs(actual);
   }
+
 }

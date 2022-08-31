@@ -8,7 +8,7 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  *
- * Copyright 2012-2021 the original author or authors.
+ * Copyright 2012-2022 the original author or authors.
  */
 package org.assertj.guava.api;
 
@@ -64,7 +64,7 @@ public class MultisetAssert<T> extends AbstractIterableAssert<MultisetAssert<T>,
    * @throws AssertionError if the actual {@link Multiset} contains the given value a number of times different to the given count
    */
   public MultisetAssert<T> contains(int expectedCount, T expected) {
-    objects.assertNotNull(info, actual);
+    isNotNull();
     checkArgument(expectedCount >= 0, "The expected count should not be negative.");
     int actualCount = actual.count(expected);
     if (actualCount != expectedCount) {
@@ -97,7 +97,7 @@ public class MultisetAssert<T> extends AbstractIterableAssert<MultisetAssert<T>,
    * @throws AssertionError if the actual {@link Multiset} contains the given value fewer times than the given count
    */
   public MultisetAssert<T> containsAtLeast(int minimumCount, T expected) {
-    objects.assertNotNull(info, actual);
+    isNotNull();
     checkArgument(minimumCount >= 0, "The minimum count should not be negative.");
     int actualCount = actual.count(expected);
     if (actualCount < minimumCount) {
@@ -131,7 +131,7 @@ public class MultisetAssert<T> extends AbstractIterableAssert<MultisetAssert<T>,
    * @throws AssertionError if the actual {@link Multiset} contains the given value more times than the given count
    */
   public MultisetAssert<T> containsAtMost(int maximumCount, T expected) {
-    objects.assertNotNull(info, actual);
+    isNotNull();
     checkArgument(maximumCount >= 0, "The maximum count should not be negative.");
     int actualCount = actual.count(expected);
     if (actualCount > maximumCount) {

@@ -8,7 +8,7 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  *
- * Copyright 2012-2021 the original author or authors.
+ * Copyright 2012-2022 the original author or authors.
  */
 package org.assertj.guava.api;
 
@@ -34,13 +34,13 @@ import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import org.assertj.core.api.InstanceOfAssertFactory;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Stefano Cordio
  * @since 3.3.0
  */
-public class Assertions_sync_with_InstanceOfAssertFactories_Test {
+class Assertions_sync_with_InstanceOfAssertFactories_Test {
 
   private static final Class<?>[] FIELD_FACTORIES_IGNORED_TYPES = {
       // There can be no Range field factory with a base type.
@@ -55,7 +55,7 @@ public class Assertions_sync_with_InstanceOfAssertFactories_Test {
   };
 
   @Test
-  public void each_guava_assertion_should_have_an_instance_of_assert_factory_static_field() {
+  void each_guava_assertion_should_have_an_instance_of_assert_factory_static_field() {
     // GIVEN
     Map<Type, Type> assertThatMethods = findAssertThatParameterAndReturnTypes();
     // WHEN
@@ -66,7 +66,7 @@ public class Assertions_sync_with_InstanceOfAssertFactories_Test {
   }
 
   @Test
-  public void each_guava_assertion_with_type_parameters_should_have_an_instance_of_assert_factory_static_method() {
+  void each_guava_assertion_with_type_parameters_should_have_an_instance_of_assert_factory_static_method() {
     // GIVEN
     Map<Type, Type> assertThatMethods = findTypedAssertThatParameterAndReturnTypes();
     // WHEN

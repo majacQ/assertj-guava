@@ -8,7 +8,7 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  *
- * Copyright 2012-2021 the original author or authors.
+ * Copyright 2012-2022 the original author or authors.
  */
 package org.assertj.guava.error;
 
@@ -20,6 +20,11 @@ import org.assertj.core.error.ErrorMessageFactory;
  */
 public class RangeSetShouldNotIntersect extends BasicErrorMessageFactory {
 
+  public static ErrorMessageFactory shouldNotIntersect(Object actual, Object unexpected, Iterable<?> intersected) {
+    return new RangeSetShouldNotIntersect(actual, unexpected, intersected);
+  }
+
+  @Deprecated
   public static ErrorMessageFactory shouldNotIntersects(Object actual, Object unexpected, Iterable<?> intersected) {
     return new RangeSetShouldNotIntersect(actual, unexpected, intersected);
   }
@@ -35,4 +40,5 @@ public class RangeSetShouldNotIntersect extends BasicErrorMessageFactory {
     super("%nExpecting:%n  %s%nnot to intersect%n  %s%nbut it intersects%n  %s%n",
           actual, unexpected, intersected);
   }
+
 }

@@ -8,7 +8,7 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  *
- * Copyright 2012-2021 the original author or authors.
+ * Copyright 2012-2022 the original author or authors.
  */
 package org.assertj.guava.api;
 
@@ -60,12 +60,13 @@ public class OptionalAssert<T> extends AbstractAssert<OptionalAssert<T>, Optiona
    * @throws AssertionError if the actual {@link Optional} is {@code null}.
    * @throws AssertionError if the actual {@link Optional} contains nothing or does not have the given value.
    */
+  @SuppressWarnings("deprecation")
   public OptionalAssert<T> contains(final Object value) {
-    objects.assertNotNull(info, actual);
+    isNotNull();
     if (!actual.isPresent()) {
       throw assertionError(shouldBePresentWithValue(value));
     }
-    if (!objects.getComparisonStrategy().areEqual(actual.get(), value)) {
+    if (!areEqual(actual.get(), value)) {
       throw assertionError(shouldBePresentWithValue(actual, value));
     }
     return this;
@@ -86,7 +87,7 @@ public class OptionalAssert<T> extends AbstractAssert<OptionalAssert<T>, Optiona
    * @throws AssertionError if the actual {@link Optional} contains a (non-null) instance.
    */
   public OptionalAssert<T> isAbsent() {
-    objects.assertNotNull(info, actual);
+    isNotNull();
     if (actual.isPresent()) {
       throw assertionError(shouldBeAbsent(actual));
     }
@@ -108,7 +109,7 @@ public class OptionalAssert<T> extends AbstractAssert<OptionalAssert<T>, Optiona
    * @throws AssertionError if the actual {@link Optional} contains a null instance.
    */
   public OptionalAssert<T> isPresent() {
-    objects.assertNotNull(info, actual);
+    isNotNull();
     if (!actual.isPresent()) {
       throw assertionError(shouldBePresent(actual));
     }

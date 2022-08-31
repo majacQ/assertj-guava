@@ -8,20 +8,17 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  *
- * Copyright 2012-2021 the original author or authors.
+ * Copyright 2012-2022 the original author or authors.
  */
 package org.assertj.guava.api;
 
 import static org.assertj.core.error.ShouldBeEmpty.shouldBeEmpty;
-import static org.assertj.core.error.ShouldBeEqual.shouldBeEqual;
+import static org.assertj.guava.error.ShouldHaveSameContent.shouldHaveSameContent;
 import static org.assertj.guava.error.ShouldHaveSize.shouldHaveSize;
 
 import java.io.IOException;
 
 import org.assertj.core.api.AbstractAssert;
-import org.assertj.core.internal.Failures;
-import org.assertj.core.presentation.StandardRepresentation;
-import org.assertj.core.util.VisibleForTesting;
 
 import com.google.common.io.ByteSource;
 
@@ -31,9 +28,6 @@ import com.google.common.io.ByteSource;
  * @author Andrew Gaul
  */
 public class ByteSourceAssert extends AbstractAssert<ByteSourceAssert, ByteSource> {
-
-  @VisibleForTesting
-  Failures failures = Failures.instance();
 
   protected ByteSourceAssert(ByteSource actual) {
     super(actual, ByteSourceAssert.class);
@@ -55,8 +49,8 @@ public class ByteSourceAssert extends AbstractAssert<ByteSourceAssert, ByteSourc
    * @throws AssertionError if the actual {@link ByteSource} does not contain the same content.
    */
   public ByteSourceAssert hasSameContentAs(ByteSource other) throws IOException {
-    objects.assertNotNull(info, actual);
-    if (!actual.contentEquals(other)) throw failures.failure(info, shouldBeEqual(actual, other, new StandardRepresentation()));
+    isNotNull();
+    if (!actual.contentEquals(other)) throw assertionError(shouldHaveSameContent(actual, other));
     return this;
   }
 
@@ -73,7 +67,7 @@ public class ByteSourceAssert extends AbstractAssert<ByteSourceAssert, ByteSourc
    * @throws AssertionError if the actual {@link ByteSource} is not empty.
    */
   public void isEmpty() throws IOException {
-    objects.assertNotNull(info, actual);
+    isNotNull();
     if (!actual.isEmpty()) throw assertionError(shouldBeEmpty(actual));
   }
 
@@ -93,7 +87,7 @@ public class ByteSourceAssert extends AbstractAssert<ByteSourceAssert, ByteSourc
    * @throws AssertionError if the number of values of the actual {@link ByteSource} is not equal to the given one.
    */
   public ByteSourceAssert hasSize(long expectedSize) throws IOException {
-    objects.assertNotNull(info, actual);
+    isNotNull();
     long sizeOfActual = actual.size();
     if (sizeOfActual != expectedSize) throw assertionError(shouldHaveSize(actual, sizeOfActual, expectedSize));
     return this;

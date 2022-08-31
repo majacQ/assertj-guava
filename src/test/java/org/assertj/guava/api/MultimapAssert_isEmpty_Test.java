@@ -8,7 +8,7 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  *
- * Copyright 2012-2021 the original author or authors.
+ * Copyright 2012-2022 the original author or authors.
  */
 package org.assertj.guava.api;
 
@@ -17,20 +17,20 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.assertj.core.util.FailureMessages.actualIsNull;
 import static org.assertj.guava.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
-public class MultimapAssert_isEmpty_Test extends MultimapAssertBaseTest {
+class MultimapAssert_isEmpty_Test extends MultimapAssertBaseTest {
 
   @Test
-  public void should_pass_if_actual_is_empty() {
+  void should_pass_if_actual_is_empty() {
     actual.clear();
     assertThat(actual).isEmpty();
   }
 
   @Test
-  public void should_fail_if_actual_is_null() {
+  void should_fail_if_actual_is_null() {
     // GIVEN
     actual = null;
     // WHEN
@@ -41,7 +41,7 @@ public class MultimapAssert_isEmpty_Test extends MultimapAssertBaseTest {
   }
 
   @Test
-  public void should_fail_if_actual_is_not_empty() {
+  void should_fail_if_actual_is_not_empty() {
     try {
       assertThat(actual).isEmpty();
     } catch (AssertionError e) {
